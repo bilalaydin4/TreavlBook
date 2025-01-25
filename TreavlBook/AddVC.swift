@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 class AddVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
@@ -43,6 +44,48 @@ class AddVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UII
         
         let gestureRecognizerL = UILongPressGestureRecognizer(target: self, action: #selector(addLocation(gestureRecognizerL:)))
         mapView.addGestureRecognizer(gestureRecognizerL)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(savePlace))
+    }
+    
+    @objc func savePlace() {
+        
+        if placeName.text != "" && placeComment.text != "" && choseImage == true && choosenLatitude != nil && choosenLongitude != nil {
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let newPlace = NSEntityDescription.insertNewObject(forEntityName: "Places", into: context)
+            
+            newPlace.setValue(placeName.text, forKey: "name")
+            newPlace.setValue(placeComment.text, forKey: "comment")
+            newPlace.setValue(UUID(), forKey: "id")
+            
+            let imageData = imageView.image?.jpegData(compressionQuality: 0.5)
+            newPlace.setValue(imageData, forKey: "image")
+            
+            newPlace.setValue(choosenLatitude, forKey: "latitude")
+            newPlace.setValue(choosenLongitude, forKey: "longitude")
+            
+            do {
+                try context.save()
+                print("Saved")
+                let alert = UIAlertController(title: "Saveing Success", message: "Data Addition Successful", preferredStyle: UIAlertController.Style.alert)
+                let okButton =  UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { UIAlertAction in
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name("newData"), object: nil)
+                    self.navigationController?.popViewController(animated: true)
+                }
+                alert.addAction(okButton)
+                present(alert, animated: true, completion: nil)
+            }catch {
+                alerts(title: "Error", message: "An error occurred")
+            }
+            
+        }else {
+            alerts(title: "Error", message: "Place name, comment, image and location are required")
+        }
+        
+
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
