@@ -55,7 +55,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Commend" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kp8-AO-Wc7">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kp8-AO-Wc7">
                                 <rect key="frame" x="16" y="176" width="182" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="JOu-XP-J9g"/>
@@ -88,6 +88,14 @@
                                     <constraint firstAttribute="width" constant="160" id="Koa-12-6sv"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpt-B6-2JQ">
+                                <rect key="frame" x="268" y="773" width="117" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="My Location"/>
+                                <connections>
+                                    <action selector="myLocation:" destination="blj-6C-UWz" eventType="touchUpInside" id="nbK-5I-nfQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nSJ-03-CiU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -100,8 +108,10 @@
                             <constraint firstItem="uL7-R3-qhh" firstAttribute="leading" secondItem="K74-q0-HXd" secondAttribute="leadingMargin" id="7eO-gQ-kZ2"/>
                             <constraint firstItem="ACi-3E-0er" firstAttribute="top" secondItem="K74-q0-HXd" secondAttribute="topMargin" constant="-7" id="8bm-cn-XFi"/>
                             <constraint firstItem="kp8-AO-Wc7" firstAttribute="leading" secondItem="ITN-VU-ZKS" secondAttribute="leading" id="AYP-VR-MPA"/>
+                            <constraint firstItem="nSJ-03-CiU" firstAttribute="bottom" secondItem="bpt-B6-2JQ" secondAttribute="bottom" constant="10" id="BvE-1F-oTr"/>
                             <constraint firstAttribute="trailing" secondItem="Rnw-jj-x6b" secondAttribute="trailing" id="F3f-bL-ZnQ"/>
                             <constraint firstItem="Rnw-jj-x6b" firstAttribute="bottom" secondItem="nSJ-03-CiU" secondAttribute="bottom" id="G24-Ej-B9i"/>
+                            <constraint firstItem="bpt-B6-2JQ" firstAttribute="leading" secondItem="nSJ-03-CiU" secondAttribute="leading" constant="268" id="ZWh-qR-PcO"/>
                             <constraint firstItem="ACi-3E-0er" firstAttribute="leading" secondItem="nSJ-03-CiU" secondAttribute="leading" constant="43" id="arz-E5-vWW"/>
                             <constraint firstItem="ITN-VU-ZKS" firstAttribute="top" secondItem="kp8-AO-Wc7" secondAttribute="bottom" constant="27" id="c54-7a-efD"/>
                             <constraint firstItem="uL7-R3-qhh" firstAttribute="leading" secondItem="kp8-AO-Wc7" secondAttribute="leading" id="d3q-Qg-kMx"/>
@@ -118,7 +128,7 @@
                         <outlet property="coordinateLable" destination="ITN-VU-ZKS" id="VNB-kB-5Zo"/>
                         <outlet property="imageView" destination="Q4e-RF-uap" id="KBe-op-JGb"/>
                         <outlet property="mapView" destination="Rnw-jj-x6b" id="l6j-i2-XLu"/>
-                        <outlet property="placeCommend" destination="kp8-AO-Wc7" id="K9a-AO-Ya3"/>
+                        <outlet property="placeComment" destination="kp8-AO-Wc7" id="pkh-Nr-dpa"/>
                         <outlet property="placeName" destination="uL7-R3-qhh" id="LhW-hE-cV1"/>
                         <outlet property="wraningLabel" destination="ACi-3E-0er" id="kpd-x0-thq"/>
                     </connections>
