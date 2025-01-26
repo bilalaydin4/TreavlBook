@@ -90,6 +90,52 @@ class DetalisVC: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { return nil }
+        
+        let reuseIdentifier = "Pin"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? MKPinAnnotationView
+
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            pinView?.pinTintColor = .red
+            pinView?.canShowCallout = true
+            
+            // Custom callout view ekleme (örnek)
+            let button = UIButton(type: .detailDisclosure)
+            pinView?.rightCalloutAccessoryView = button
+        } else {
+            pinView?.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        
+            
+        let requestLocaton = CLLocation(latitude: annotationLatitude!, longitude: annotationLongitude!)
+            CLGeocoder().reverseGeocodeLocation(requestLocaton) { placeMark , erorr in
+                // closure
+                
+                if let placeMark = placeMark {
+                    if placeMark.count > 0  {
+                        
+                        let newPlacemark = MKPlacemark(placemark: placeMark[0])
+                        let item = MKMapItem(placemark: newPlacemark)
+                        item.name = self.annotationTitle
+                        
+                        let lunchOptions = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+                        
+                        item.openInMaps(launchOptions: lunchOptions)
+                        
+                }
+            }
+        }
+    }
+    
 
     @objc func deletePlace () {
         
